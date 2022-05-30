@@ -8,6 +8,7 @@ import nl.ivonet.cqrs.core.events.EventModel;
 import nl.ivonet.cqrs.core.exceptions.AggregateNotFoundException;
 import nl.ivonet.cqrs.core.exceptions.ConcurrencyException;
 import nl.ivonet.cqrs.core.infrastructure.EventStore;
+import nl.ivonet.cqrs.core.producers.EventProducer;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.List;
 public class AccountingEventStore implements EventStore {
 
     private final EventStoreRepository eventStoreRepository;
+    private final EventProducer eventProducer;
 
     @Override
     public void saveEvents(String aggregateId, Iterable<BaseEvent> events, int expectedVersion) {
@@ -39,10 +41,10 @@ public class AccountingEventStore implements EventStore {
                     .version(version)
                     .eventData(event)
                     .build());
-            if (persistedEvent == null) {
+            if (persistedEvent.getId().isEmpty()) {
                 throw new IllegalStateException("Could not save event " + event.getClass().getName());
             }
-            //TODO produce event to kafka
+            eventProducer.publish(AccountingAggregate.class.getName(), event);
         }
     }
 

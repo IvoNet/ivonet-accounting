@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>nl.ivonet</groupId>
 	<artifactId>accounting.cmd</artifactId>
-	<version>1.0.0</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>accounting.cmd</name>
 	<description>Accounting Command API Project</description>
 	<properties>

@@ -6,6 +6,7 @@ import nl.ivonet.cqrs.core.infrastructure.CommandDispatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class AccountingCommandDispatcher implements CommandDispatcher {
 
     @Override
     public <T extends BaseCommand> void registerHandler(Class<T> type, CommandHandlerMethod<T> handler) {
-        routes.computeIfAbsent(type, k -> List.of()).add(handler);
+        routes.computeIfAbsent(type, k -> new LinkedList<>()).add(handler);
     }
 
     @Override
