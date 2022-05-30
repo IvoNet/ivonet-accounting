@@ -16,9 +16,9 @@
 
     <modules>
         <module>../cqrs-es/cqrs.core</module>
-        <module>account.common</module>
-        <module>account.cmd</module>
-        <module>account.query</module>
+        <module>accounting.common</module>
+        <module>accounting.cmd</module>
+        <module>accounting.query</module>
     </modules>
 
 </project>

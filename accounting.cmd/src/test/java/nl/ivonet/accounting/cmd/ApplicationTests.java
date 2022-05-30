@@ -1,4 +1,4 @@
-package com.techbank.account.query;
+package nl.ivonet.accounting.cmd;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

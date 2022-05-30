@@ -8,13 +8,13 @@
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.techbank</groupId>
-	<artifactId>account.cmd</artifactId>
+	<groupId>nl.ivonet</groupId>
+	<artifactId>accounting.cmd</artifactId>
 	<version>1.0.0</version>
-	<name>account.cmd</name>
-	<description>Bank Account Command API Project</description>
+	<name>accounting.cmd</name>
+	<description>Accounting Command API Project</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

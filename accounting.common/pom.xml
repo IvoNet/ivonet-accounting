@@ -8,13 +8,13 @@
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.techbank</groupId>
-	<artifactId>account.common</artifactId>
+	<groupId>nl.ivonet</groupId>
+	<artifactId>accounting.common</artifactId>
 	<version>1.0.0</version>
-	<name>account.common</name>
-	<description>Bank Account Common Project</description>
+	<name>accounting.common</name>
+	<description>Accounting Common Project</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

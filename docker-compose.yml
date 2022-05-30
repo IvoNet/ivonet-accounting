@@ -1,0 +1,136 @@
+version: "3.8"
+
+services:
+  zookeeper:
+    image: bitnami/zookeeper
+    restart: on-failure
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper_data:/bitnami
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - accounting
+
+  kafka:
+    image: bitnami/kafka
+    ports:
+      - "9092:9092"
+    restart: on-failure
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+    networks:
+        - accounting
+
+  mongo:
+    image: mongo:5.0.8
+    restart: on-failure
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data-db:/data/db
+      - mongo-data-configdb:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: accounting
+      MONGO_INITDB_ROOT_PASSWORD: s3cr3t
+    networks:
+      - accounting
+
+#  mongo-express:
+#    image: mongo-express
+#    restart: on-failure
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - mongo
+#    environment:
+#      ME_CONFIG_MONGODB_ADMINUSERNAME: accounting
+#      ME_CONFIG_MONGODB_ADMINPASSWORD: s3cr3t
+#      ME_CONFIG_MONGODB_URL: mongodb://accounting:s3cr3t@mongo:27017/ # does not work!!
+#    networks:
+#        - accounting
+
+  postgres:
+    container_name: postgres_container
+    image: postgres:9.6.24
+    environment:
+      POSTGRES_USER: accounting
+      POSTGRES_PASSWORD: s3cr3t
+      PGDATA: /data/postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres-data:/data/postgres
+      - ./volumes/postgresql/setup:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - accounting
+    restart: unless-stopped
+
+#  pgadmin:
+#    container_name: pgadmin_container
+#    image: dpage/pgadmin4
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-ivow@ivonet.nl}
+#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-s3cr3t}
+#      PGADMIN_CONFIG_SERVER_MODE: 'False'
+#    volumes:
+#      - ./volumes/pgadmin:/var/lib/pgadmin
+#    ports:
+#      - "${PGADMIN_PORT:-8083}:80"
+#    networks:
+#      - accounting
+#    restart: unless-stopped
+
+  mariadb:
+    image: ivonet/mariadb
+    volumes:
+      - ./volumes/mariadb/setup:/docker-entrypoint-initdb.d
+      - ./volumes/mariadb/testdata/mariadb:/testdata
+      - mariadb-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=s3cr3t
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+      - MARIADB_MYSQL_LOCALHOST_USER=accounting
+    networks:
+      - accounting
+    restart: unless-stopped
+
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin:4.6.6-2
+#    ports:
+#      - "8082:80"
+#    links:
+#      - mariadb:mariadb
+#    environment:
+#      - MYSQL_USERNAME=root
+#      - MYSQL_ROOT_PASSWORD=s3cr3t
+#      - PMA_HOST=mariadb
+#    depends_on:
+#      - mariadb
+#    networks:
+#      - accounting
+#    restart: unless-stopped
+
+volumes:
+  zookeeper_data:
+  kafka_data:
+  mariadb-data:
+  mongo-data-db:
+  mongo-data-configdb:
+  postgres-data:
+
+networks:
+  accounting:
+    driver: bridge
