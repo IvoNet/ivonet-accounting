@@ -6,7 +6,9 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: bankAccount
+      database: accounting
+      username: accounting
+      password: s3cr3t
   kafka:
     producer:
       bootstrap-servers: localhost:9092
