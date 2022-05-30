@@ -4,8 +4,8 @@ import lombok.NoArgsConstructor;
 import nl.ivonet.accounting.cmd.api.commands.OpenAccountCommand;
 import nl.ivonet.accounting.common.events.AccountClosedEvent;
 import nl.ivonet.accounting.common.events.AccountOpenedEvent;
-import nl.ivonet.accounting.common.events.FundsDepositedEvent;
 import nl.ivonet.accounting.common.events.FundsWithdrawnEvent;
+import nl.ivonet.accounting.common.events.FundsDepositedEvent;
 import nl.ivonet.cqrs.core.domain.AggregateRoot;
 
 import java.util.Date;
@@ -21,7 +21,7 @@ public class AccountingAggregate extends AggregateRoot {
                 .accountHolder(command.getAccountHolder())
                 .accountNumber(command.getAccountNumber())
                 .accountType(command.getAccountType())
-                .createdDate(new Date())
+                .creationDate(new Date())
                 .initialBalance(command.getInitialBalance())
                 .build());
     }
@@ -46,7 +46,7 @@ public class AccountingAggregate extends AggregateRoot {
                 .build());
     }
 
-    public void apply(FundsDepositedEvent event) {
+    public void apply(FundsWithdrawnEvent event) {
         this.id = event.getId();
         balance += event.getAmount();
     }
@@ -61,13 +61,13 @@ public class AccountingAggregate extends AggregateRoot {
         if (balance < amount) {
             throw new IllegalArgumentException("Withdrawal declined. Insufficient funds.");
         }
-        raiseEvent(FundsDepositedEvent.builder()
+        raiseEvent(FundsWithdrawnEvent.builder()
                 .id(id)
                 .amount(amount)
                 .build());
     }
 
-    public void apply(FundsWithdrawnEvent event) {
+    public void apply(FundsDepositedEvent event) {
         this.id = event.getId();
         balance -= event.getAmount();
     }
