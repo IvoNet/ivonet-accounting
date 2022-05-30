@@ -59,7 +59,7 @@ public class AccountingAggregate extends AggregateRoot {
             throw new IllegalArgumentException("The Withdraw amount must be greater than zero.");
         }
         if (balance < amount) {
-            throw new IllegalArgumentException("The Withdraw amount must be less or equal than the current balance.");
+            throw new IllegalArgumentException("Withdrawal declined. Insufficient funds.");
         }
         raiseEvent(FundsDepositedEvent.builder()
                 .id(id)
