@@ -1,7 +1,7 @@
 package nl.ivonet.accounting.cmd.infrastructure;
 
 import lombok.AllArgsConstructor;
-import nl.ivonet.accounting.cmd.domain.AccountAggregate;
+import nl.ivonet.accounting.cmd.domain.AccountingAggregate;
 import nl.ivonet.accounting.cmd.domain.EventStoreRepository;
 import nl.ivonet.cqrs.core.events.BaseEvent;
 import nl.ivonet.cqrs.core.events.EventModel;
@@ -33,7 +33,7 @@ public class AccountingEventStore implements EventStore {
 
             final EventModel persistedEvent = eventStoreRepository.save(EventModel.builder()
                     .aggregateId(aggregateId)
-                    .aggregateType(AccountAggregate.class.getName())
+                    .aggregateType(AccountingAggregate.class.getName())
                     .eventType(event.getClass().getName())
                     .timestamp(new Date())
                     .version(version)
@@ -47,12 +47,12 @@ public class AccountingEventStore implements EventStore {
     }
 
     @Override
-    public Iterator<BaseEvent> getEvents(String aggregateId) {
+    public List<BaseEvent> getEvents(String aggregateId) {
         var eventsList = eventStoreRepository.findByAggregateId(aggregateId);
         if (eventsList == null || eventsList.isEmpty()) {
             throw new AggregateNotFoundException("Incorrect account id provided!");
         }
-        return eventsList.stream().map(EventModel::getEventData).iterator();
+        return eventsList.stream().map(EventModel::getEventData).toList();
     }
 
     private EventModel lastEvent(List<EventModel> eventsList) {

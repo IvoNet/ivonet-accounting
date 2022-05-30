@@ -11,11 +11,11 @@ import nl.ivonet.cqrs.core.domain.AggregateRoot;
 import java.util.Date;
 
 @NoArgsConstructor
-public class AccountAggregate extends AggregateRoot {
+public class AccountingAggregate extends AggregateRoot {
     private Boolean active;
     private double balance;
 
-    public AccountAggregate(OpenAccountCommand command) {
+    public AccountingAggregate(OpenAccountCommand command) {
         raiseEvent(AccountOpenedEvent.builder()
                 .id(command.getId())
                 .accountHolder(command.getAccountHolder())
