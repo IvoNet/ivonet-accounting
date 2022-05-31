@@ -44,7 +44,7 @@ public class AccountingEventStore implements EventStore {
             if (persistedEvent.getId().isEmpty()) {
                 throw new IllegalStateException("Could not save event " + event.getClass().getName());
             }
-            eventProducer.publish(AccountingAggregate.class.getName(), event);
+            eventProducer.publish(event.getClass().getSimpleName(), event);
         }
     }
 

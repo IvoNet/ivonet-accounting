@@ -1,0 +1,11 @@
+###
+POST http://localhost:8000/api/v1/openBankAccount
+Content-Type: application/json
+
+{
+    "accountHolder": "John Doe",
+    "accountNumber": "123456789",
+    "accountType": "SAVINGS",
+    "initialBalance": 50.0
+}
+

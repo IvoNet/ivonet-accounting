@@ -16,7 +16,7 @@ public class AccountingEventConsumer implements EventConsumer {
 
     private final EventHandler eventHandler;
 
-    @KafkaListener(topics = "AccountOpenEvent", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "AccountOpenedEvent", groupId = "${spring.kafka.consumer.group-id}")
     @Override
     public void consume(AccountOpenedEvent event, Acknowledgment acknowledgment) {
         eventHandler.on(event);

@@ -1,5 +1,5 @@
 server:
-  port: 5000
+  port: 8000
 
 spring:
   data:
@@ -7,8 +7,7 @@ spring:
       host: localhost
       port: 27017
       database: accounting
-      username: accounting
-      password: s3cr3t
+      uri: mongodb://accounting:s3cr3t@mongo:27017/
   kafka:
     producer:
       bootstrap-servers: localhost:9092

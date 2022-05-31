@@ -1,5 +1,5 @@
 server:
-  port: 5001
+  port: 8001
 
 spring:
   jpa:
@@ -25,3 +25,4 @@ spring:
           json:
             trusted:
               packages: '*'
+

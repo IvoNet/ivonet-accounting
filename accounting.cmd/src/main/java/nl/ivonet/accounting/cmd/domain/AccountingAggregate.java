@@ -4,8 +4,8 @@ import lombok.NoArgsConstructor;
 import nl.ivonet.accounting.cmd.api.commands.OpenAccountCommand;
 import nl.ivonet.accounting.common.events.AccountClosedEvent;
 import nl.ivonet.accounting.common.events.AccountOpenedEvent;
-import nl.ivonet.accounting.common.events.FundsWithdrawnEvent;
 import nl.ivonet.accounting.common.events.FundsDepositedEvent;
+import nl.ivonet.accounting.common.events.FundsWithdrawnEvent;
 import nl.ivonet.cqrs.core.domain.AggregateRoot;
 
 import java.util.Date;
