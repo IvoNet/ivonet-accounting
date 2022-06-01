@@ -15,23 +15,23 @@ POST http://localhost:8000/api/v1/openBankAccount
 Content-Type: application/json
 
 {
-  "accountHolder": "Ivo Wolf",
+  "accountHolder": "Ivo woltring",
   "accountNumber": "987654321",
   "accountType": "SAVINGS",
   "initialBalance": 42.0
 }
 
 ###
-PUT http://localhost:8000/api/v1/depositFunds/d9bc3ebf-8665-4d13-9529-161f50a43e7c
+PUT http://localhost:8000/api/v1/depositFunds/cbf80afe-4d1b-4574-8814-d51cf624c158
 Content-Type: application/json
 
 {
-  "amount": 50.0
+  "amount": 100.0
 }
 
 
 ###
-PUT http://localhost:8000/api/v1/withdrawFunds/d9bc3ebf-8665-4d13-9529-161f50a43e7c
+PUT http://localhost:8000/api/v1/withdrawFunds/cbf80afe-4d1b-4574-8814-d51cf624c158
 Content-Type: application/json
 
 {
@@ -39,8 +39,11 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/v1/closeAccount/d9bc3ebf-8665-4d13-9529-161f50a43e7c
+DELETE http://localhost:8000/api/v1/closeAccount/cbf80afe-4d1b-4574-8814-d51cf624c158
 
+
+###
+POST http://localhost:8000/api/v1/restoreReadDatabase
 
 # Queries
 ###
@@ -48,7 +51,7 @@ GET http://localhost:8001/api/v1/bankAccountLookup
 Accept: application/json
 
 ###
-GET http://localhost:8001/api/v1/bankAccountLookup/byId/d9bc3ebf-8665-4d13-9529-161f50a43e7c
+GET http://localhost:8001/api/v1/bankAccountLookup/byId/cbf80afe-4d1b-4574-8814-d51cf624c158
 Accept: application/json
 
 ###
