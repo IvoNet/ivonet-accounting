@@ -2,6 +2,7 @@ package nl.ivonet.accounting.query.domain;
 
 import lombok.*;
 import nl.ivonet.accounting.common.dto.AccountType;
+import nl.ivonet.cqrs.core.domain.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BankAccount {
+public class BankAccount extends BaseEntity {
 
     @Id
     private String id;
