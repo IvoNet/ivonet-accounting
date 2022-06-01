@@ -26,6 +26,7 @@ public class RegisterHandlersInitializingBean implements InitializingBean {
         this.commandDispatcher.registerHandler(DepositFundsCommand.class, this.commandHandler::handle);
         this.commandDispatcher.registerHandler(WithdrawFundsCommand.class, this.commandHandler::handle);
         this.commandDispatcher.registerHandler(CloseAccountCommand.class, this.commandHandler::handle);
+        this.commandDispatcher.registerHandler(RestoreReadDatabaseCommand.class, this.commandHandler::handle);
         log.info("Registered AccountingCommand handlers");
     }
 }

@@ -6,6 +6,7 @@ import nl.ivonet.cqrs.core.domain.AggregateRoot;
 import nl.ivonet.cqrs.core.events.BaseEvent;
 import nl.ivonet.cqrs.core.handlers.EventSourcingHandler;
 import nl.ivonet.cqrs.core.infrastructure.EventStore;
+import nl.ivonet.cqrs.core.producers.EventProducer;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -14,6 +15,7 @@ import java.util.Comparator;
 @AllArgsConstructor
 public class AccountingEventSourcingHandler implements EventSourcingHandler<AccountingAggregate> {
 
+    private final EventProducer eventProducer;
     private final EventStore eventStore;
 
     @Override
@@ -37,5 +39,22 @@ public class AccountingEventSourcingHandler implements EventSourcingHandler<Acco
         aggregate.setVersion(latestVersion.orElseThrow(IllegalStateException::new));
 
         return aggregate;
+    }
+
+    @Override
+    public void republishEvents() {
+        var aggregateIds = this.eventStore.getAggregateIds();
+        for (final String aggregateId : aggregateIds) {
+            var aggregate = this.getById(aggregateId);
+            if (!aggregate.getActive()) {
+                continue;
+            }
+            var events = this.eventStore.getEvents(aggregateId);
+            for (var event : events) {
+                this.eventProducer.publish(event.getClass().getSimpleName(), event);
+            }
+
+        }
+
     }
 }

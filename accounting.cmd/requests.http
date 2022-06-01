@@ -1,16 +1,28 @@
+# Commands
 ###
 POST http://localhost:8000/api/v1/openBankAccount
 Content-Type: application/json
 
 {
-    "accountHolder": "John Doe",
-    "accountNumber": "123456789",
-    "accountType": "SAVINGS",
-    "initialBalance": 50.0
+  "accountHolder": "John Doe",
+  "accountNumber": "123456789",
+  "accountType": "SAVINGS",
+  "initialBalance": 50.0
 }
 
 ###
-PUT http://localhost:8000/api/v1/depositFunds/{{id}}
+POST http://localhost:8000/api/v1/openBankAccount
+Content-Type: application/json
+
+{
+  "accountHolder": "Ivo Wolf",
+  "accountNumber": "987654321",
+  "accountType": "SAVINGS",
+  "initialBalance": 42.0
+}
+
+###
+PUT http://localhost:8000/api/v1/depositFunds/d9bc3ebf-8665-4d13-9529-161f50a43e7c
 Content-Type: application/json
 
 {
@@ -19,7 +31,7 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:8000/api/v1/withdrawFunds/{{id}}
+PUT http://localhost:8000/api/v1/withdrawFunds/d9bc3ebf-8665-4d13-9529-161f50a43e7c
 Content-Type: application/json
 
 {
@@ -27,4 +39,26 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/v1/closeAccount/{{id}}
+DELETE http://localhost:8000/api/v1/closeAccount/d9bc3ebf-8665-4d13-9529-161f50a43e7c
+
+
+# Queries
+###
+GET http://localhost:8001/api/v1/bankAccountLookup
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/byId/d9bc3ebf-8665-4d13-9529-161f50a43e7c
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/byAccountHolder/John Doe
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/withBalance/GREATER_THAN/50
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/withBalance/LESS_THAN/100
+Accept: application/json

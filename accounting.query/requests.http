@@ -1,0 +1,19 @@
+###
+GET http://localhost:8001/api/v1/bankAccountLookup
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/byId/d9bc3ebf-8665-4d13-9529-161f50a43e7c
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/byAccountHolder/John Doe
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/withBalance/GREATER_THAN/50
+Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/withBalance/LESS_THAN/100
+Accept: application/json

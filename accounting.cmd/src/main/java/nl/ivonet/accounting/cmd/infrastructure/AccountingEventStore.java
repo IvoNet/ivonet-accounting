@@ -56,6 +56,11 @@ public class AccountingEventStore implements EventStore {
         return eventsList.stream().map(EventModel::getEventData).toList();
     }
 
+    @Override
+    public List<String> getAggregateIds() {
+        return this.eventStoreRepository.findAll().stream().map(EventModel::getAggregateId).distinct().toList();
+    }
+
     private EventModel lastEvent(List<EventModel> eventsList) {
         return eventsList.get(this.lastIndex(eventsList));
     }

@@ -33,6 +33,11 @@ public class AccountingCommandHandler implements CommandHandler {
     }
 
     @Override
+    public void handle(RestoreReadDatabaseCommand command) {
+        this.eventSourcingHandler.republishEvents();
+    }
+
+    @Override
     public void handle(CloseAccountCommand command) {
         var aggregate = this.eventSourcingHandler.getById(command.getId());
         aggregate.closeAccount();

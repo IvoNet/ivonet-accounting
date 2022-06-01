@@ -1,5 +1,6 @@
 package nl.ivonet.accounting.cmd.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import nl.ivonet.accounting.cmd.api.commands.OpenAccountCommand;
 import nl.ivonet.accounting.common.events.AccountClosedEvent;
@@ -12,7 +13,9 @@ import java.util.Date;
 
 @NoArgsConstructor
 public class AccountingAggregate extends AggregateRoot {
+    @Getter
     private Boolean active;
+    @Getter
     private double balance;
 
     public AccountingAggregate(OpenAccountCommand command) {
