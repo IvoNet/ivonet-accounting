@@ -9,3 +9,10 @@ Content-Type: application/json
     "initialBalance": 50.0
 }
 
+###
+PUT http://localhost:8000/api/v1/depositFunds/{{id}}
+Content-Type: application/json
+
+{
+  "amount": 50.0
+}
