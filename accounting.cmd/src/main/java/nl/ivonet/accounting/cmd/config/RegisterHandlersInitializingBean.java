@@ -22,10 +22,10 @@ public class RegisterHandlersInitializingBean implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        commandDispatcher.registerHandler(OpenAccountCommand.class, commandHandler::handle);
-        commandDispatcher.registerHandler(DepositFundsCommand.class, commandHandler::handle);
-        commandDispatcher.registerHandler(WithdrawFundsCommand.class, commandHandler::handle);
-        commandDispatcher.registerHandler(CloseAccountCommand.class, commandHandler::handle);
+        this.commandDispatcher.registerHandler(OpenAccountCommand.class, this.commandHandler::handle);
+        this.commandDispatcher.registerHandler(DepositFundsCommand.class, this.commandHandler::handle);
+        this.commandDispatcher.registerHandler(WithdrawFundsCommand.class, this.commandHandler::handle);
+        this.commandDispatcher.registerHandler(CloseAccountCommand.class, this.commandHandler::handle);
         log.info("Registered AccountingCommand handlers");
     }
 }

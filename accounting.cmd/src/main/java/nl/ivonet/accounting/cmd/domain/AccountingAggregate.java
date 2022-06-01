@@ -16,7 +16,7 @@ public class AccountingAggregate extends AggregateRoot {
     private double balance;
 
     public AccountingAggregate(OpenAccountCommand command) {
-        raiseEvent(AccountOpenedEvent.builder()
+        this.raiseEvent(AccountOpenedEvent.builder()
                 .id(command.getId())
                 .accountHolder(command.getAccountHolder())
                 .accountNumber(command.getAccountNumber())
@@ -34,50 +34,50 @@ public class AccountingAggregate extends AggregateRoot {
     }
 
     public void depositFunds(double amount) {
-        if (!active) {
+        if (!this.active) {
             throw new IllegalStateException("Funds can not be deposited into a closed account.");
         }
         if (amount <= 0) {
             throw new IllegalArgumentException("The Deposit amount must be greater than zero.");
         }
-        raiseEvent(FundsDepositedEvent.builder()
-                .id(id)
+        this.raiseEvent(FundsDepositedEvent.builder()
+                .id(this.id)
                 .amount(amount)
                 .build());
     }
 
     public void apply(FundsWithdrawnEvent event) {
         this.id = event.getId();
-        balance += event.getAmount();
+        this.balance += event.getAmount();
     }
 
     public void withdrawFunds(double amount) {
-        if (!active) {
+        if (!this.active) {
             throw new IllegalStateException("Funds can not be withdrawn from a closed account.");
         }
         if (amount <= 0) {
             throw new IllegalArgumentException("The Withdraw amount must be greater than zero.");
         }
-        if (balance < amount) {
+        if (this.balance < amount) {
             throw new IllegalArgumentException("Withdrawal declined. Insufficient funds.");
         }
-        raiseEvent(FundsWithdrawnEvent.builder()
-                .id(id)
+        this.raiseEvent(FundsWithdrawnEvent.builder()
+                .id(this.id)
                 .amount(amount)
                 .build());
     }
 
     public void apply(FundsDepositedEvent event) {
         this.id = event.getId();
-        balance -= event.getAmount();
+        this.balance -= event.getAmount();
     }
 
     public void closeAccount() {
-        if (!active) {
+        if (!this.active) {
             throw new IllegalStateException("Account is already closed.");
         }
-        raiseEvent(AccountClosedEvent.builder()
-                .id(id)
+        this.raiseEvent(AccountClosedEvent.builder()
+                .id(this.id)
                 .build());
     }
 

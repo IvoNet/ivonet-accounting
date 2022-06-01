@@ -18,7 +18,7 @@ public class AccountingEventSourcingHandler implements EventSourcingHandler<Acco
 
     @Override
     public void save(AggregateRoot aggregate) {
-        eventStore.saveEvents(aggregate.getId(), aggregate.getUncommittedChanges(), aggregate.getVersion());
+        this.eventStore.saveEvents(aggregate.getId(), aggregate.getUncommittedChanges(), aggregate.getVersion());
         aggregate.markChangesAsCommitted();
 
     }
@@ -26,7 +26,7 @@ public class AccountingEventSourcingHandler implements EventSourcingHandler<Acco
     @Override
     public AccountingAggregate getById(String id) {
         var aggregate = new AccountingAggregate();
-        var events = eventStore.getEvents(id);
+        var events = this.eventStore.getEvents(id);
         if (events == null || events.isEmpty()) {
             return aggregate;
         }

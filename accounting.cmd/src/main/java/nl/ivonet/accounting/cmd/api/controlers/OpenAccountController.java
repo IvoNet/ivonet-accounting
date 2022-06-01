@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.MessageFormat;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +32,7 @@ public class OpenAccountController {
         var id = UUID.randomUUID().toString();
         command.setId(id);
         try {
-            commandDispatcher.dispatch(command);
+            this.commandDispatcher.dispatch(command);
             return new ResponseEntity<>(new OpenAccountResponse("Account created", id), CREATED);
         } catch (IllegalStateException e) {
             log.warning("Client made a bad request " + e.getMessage());

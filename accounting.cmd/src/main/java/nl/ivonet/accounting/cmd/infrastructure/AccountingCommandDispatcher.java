@@ -15,23 +15,25 @@ import java.util.Map;
  */
 @Service
 public class AccountingCommandDispatcher implements CommandDispatcher {
+    @SuppressWarnings("rawtypes")
     private final Map<Class<? extends BaseCommand>, List<CommandHandlerMethod>> routes;
 
     public AccountingCommandDispatcher() {
-        routes = new HashMap<>();
+        this.routes = new HashMap<>();
     }
 
     @Override
     public <T extends BaseCommand> void registerHandler(Class<T> type, CommandHandlerMethod<T> handler) {
-        routes.computeIfAbsent(type, k -> new LinkedList<>()).add(handler);
+        this.routes.computeIfAbsent(type, k -> new LinkedList<>()).add(handler);
     }
 
     @Override
     public void dispatch(BaseCommand command) {
-        var handlers = routes.get(command.getClass());
+        var handlers = this.routes.get(command.getClass());
         if (handlers == null) {
             throw new IllegalStateException("No handler registered for command " + command.getClass());
         }
+        //noinspection unchecked
         handlers.forEach(h -> h.handle(command));
     }
 

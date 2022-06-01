@@ -14,28 +14,28 @@ public class AccountingCommandHandler implements CommandHandler {
     @Override
     public void handle(OpenAccountCommand command) {
         var aggregate = new AccountingAggregate(command);
-        eventSourcingHandler.save(aggregate);
+        this.eventSourcingHandler.save(aggregate);
 
     }
 
     @Override
     public void handle(DepositFundsCommand command) {
-        var aggregate = eventSourcingHandler.getById(command.getId());
+        var aggregate = this.eventSourcingHandler.getById(command.getId());
         aggregate.depositFunds(command.getAmount());
-        eventSourcingHandler.save(aggregate);
+        this.eventSourcingHandler.save(aggregate);
     }
 
     @Override
     public void handle(WithdrawFundsCommand command) {
-        var aggregate = eventSourcingHandler.getById(command.getId());
+        var aggregate = this.eventSourcingHandler.getById(command.getId());
         aggregate.withdrawFunds(command.getAmount());
-        eventSourcingHandler.save(aggregate);
+        this.eventSourcingHandler.save(aggregate);
     }
 
     @Override
     public void handle(CloseAccountCommand command) {
-        var aggregate = eventSourcingHandler.getById(command.getId());
+        var aggregate = this.eventSourcingHandler.getById(command.getId());
         aggregate.closeAccount();
-        eventSourcingHandler.save(aggregate);
+        this.eventSourcingHandler.save(aggregate);
     }
 }

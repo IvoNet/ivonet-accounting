@@ -20,15 +20,6 @@ services:
     depends_on:
       - zookeeper
 
-  manager:
-    image: sheepkiller/kafka-manager
-    ports:
-      - 9000:9000
-    environment:
-      - ZK_HOSTS=zookeeper:2181
-    depends_on:
-      - zookeeper
-
   mongo:
     image: mongo:5.0.8
     restart: on-failure
@@ -76,6 +67,16 @@ services:
     networks:
       - accounting
     restart: unless-stopped
+
+  manager:
+    image: sheepkiller/kafka-manager
+    ports:
+      - 9000:9000
+    environment:
+      - ZK_HOSTS=zookeeper:2181
+    depends_on:
+      - zookeeper
+      - kafka
 
 volumes:
   zookeeper_data:

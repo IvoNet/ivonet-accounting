@@ -12,7 +12,6 @@ import nl.ivonet.cqrs.core.producers.EventProducer;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -24,8 +23,8 @@ public class AccountingEventStore implements EventStore {
 
     @Override
     public void saveEvents(String aggregateId, Iterable<BaseEvent> events, int expectedVersion) {
-        var eventsList = eventStoreRepository.findByAggregateId(aggregateId);
-        if (expectedVersion != -1 && lastEvent(eventsList).getVersion() != expectedVersion) {
+        var eventsList = this.eventStoreRepository.findByAggregateId(aggregateId);
+        if (expectedVersion != -1 && this.lastEvent(eventsList).getVersion() != expectedVersion) {
             throw new ConcurrencyException();
         }
         var version = expectedVersion;
@@ -33,7 +32,7 @@ public class AccountingEventStore implements EventStore {
             version++;
             event.setVersion(version);
 
-            final EventModel persistedEvent = eventStoreRepository.save(EventModel.builder()
+            final EventModel persistedEvent = this.eventStoreRepository.save(EventModel.builder()
                     .aggregateId(aggregateId)
                     .aggregateType(AccountingAggregate.class.getName())
                     .eventType(event.getClass().getName())
@@ -44,13 +43,13 @@ public class AccountingEventStore implements EventStore {
             if (persistedEvent.getId().isEmpty()) {
                 throw new IllegalStateException("Could not save event " + event.getClass().getName());
             }
-            eventProducer.publish(event.getClass().getSimpleName(), event);
+            this.eventProducer.publish(event.getClass().getSimpleName(), event);
         }
     }
 
     @Override
     public List<BaseEvent> getEvents(String aggregateId) {
-        var eventsList = eventStoreRepository.findByAggregateId(aggregateId);
+        var eventsList = this.eventStoreRepository.findByAggregateId(aggregateId);
         if (eventsList == null || eventsList.isEmpty()) {
             throw new AggregateNotFoundException("Incorrect account id provided!");
         }
@@ -58,7 +57,7 @@ public class AccountingEventStore implements EventStore {
     }
 
     private EventModel lastEvent(List<EventModel> eventsList) {
-        return eventsList.get(lastIndex(eventsList));
+        return eventsList.get(this.lastIndex(eventsList));
     }
 
     private int lastIndex(List<EventModel> eventsList) {
