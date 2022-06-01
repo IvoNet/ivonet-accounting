@@ -16,3 +16,15 @@ Content-Type: application/json
 {
   "amount": 50.0
 }
+
+
+###
+PUT http://localhost:8000/api/v1/withdrawFunds/{{id}}
+Content-Type: application/json
+
+{
+  "amount": 42.0
+}
+
+###
+DELETE http://localhost:8000/api/v1/closeAccount/{{id}}

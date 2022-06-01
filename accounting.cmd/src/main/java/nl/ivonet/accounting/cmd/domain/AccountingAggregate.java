@@ -46,7 +46,7 @@ public class AccountingAggregate extends AggregateRoot {
                 .build());
     }
 
-    public void apply(FundsWithdrawnEvent event) {
+    public void apply(FundsDepositedEvent event) {
         this.id = event.getId();
         this.balance += event.getAmount();
     }
@@ -67,7 +67,7 @@ public class AccountingAggregate extends AggregateRoot {
                 .build());
     }
 
-    public void apply(FundsDepositedEvent event) {
+    public void apply(FundsWithdrawnEvent event) {
         this.id = event.getId();
         this.balance -= event.getAmount();
     }

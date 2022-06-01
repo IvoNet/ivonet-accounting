@@ -17,7 +17,7 @@ public class AccountEventHandler implements EventHandler {
 
     @Override
     public void on(AccountOpenedEvent event) {
-        accountRepository.save(BankAccount.builder()
+        this.accountRepository.save(BankAccount.builder()
                 .id(event.getId())
                 .accountNumber(event.getAccountNumber())
                 .accountHolder(event.getAccountHolder())
@@ -29,22 +29,20 @@ public class AccountEventHandler implements EventHandler {
 
     @Override
     public void on(FundsWithdrawnEvent event) {
-        var account = accountRepository.findById(event.getId()).orElseThrow(() -> new IllegalStateException("Account not found."));
+        var account = this.accountRepository.findById(event.getId()).orElseThrow(() -> new IllegalStateException("Account not found."));
         account.setBalance(account.getBalance() - event.getAmount());
-        accountRepository.save(account);
-
+        this.accountRepository.save(account);
     }
 
     @Override
     public void on(FundsDepositedEvent event) {
-        var account = accountRepository.findById(event.getId()).orElseThrow(() -> new IllegalStateException("Account not found."));
+        var account = this.accountRepository.findById(event.getId()).orElseThrow(() -> new IllegalStateException("Account not found."));
         account.setBalance(account.getBalance() + event.getAmount());
-        accountRepository.save(account);
-
+        this.accountRepository.save(account);
     }
 
     @Override
     public void on(AccountClosedEvent event) {
-        accountRepository.deleteById(event.getId());
+        this.accountRepository.deleteById(event.getId());
     }
 }
