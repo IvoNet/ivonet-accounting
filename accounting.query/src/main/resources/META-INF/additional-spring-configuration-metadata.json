@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "event_bus",
+      "type": "java.lang.String",
+      "description": "Determines which event bus to use [rabbitmq|kafka]."
+    }
+  ]
+}

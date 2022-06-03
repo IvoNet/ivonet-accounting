@@ -7,7 +7,7 @@ import nl.ivonet.accounting.common.events.FundsWithdrawnEvent;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.messaging.handler.annotation.Payload;
 
-public interface EventConsumer {
+public interface KafkaEventConsumer {
     void consume(@Payload AccountOpenedEvent event, Acknowledgment acknowledgment);
 
     void consume(@Payload FundsDepositedEvent event, Acknowledgment acknowledgment);

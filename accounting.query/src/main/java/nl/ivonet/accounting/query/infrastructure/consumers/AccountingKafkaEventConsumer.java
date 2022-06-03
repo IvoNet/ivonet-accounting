@@ -6,13 +6,15 @@ import nl.ivonet.accounting.common.events.AccountOpenedEvent;
 import nl.ivonet.accounting.common.events.FundsDepositedEvent;
 import nl.ivonet.accounting.common.events.FundsWithdrawnEvent;
 import nl.ivonet.accounting.query.infrastructure.handlers.EventHandler;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AccountingEventConsumer implements EventConsumer {
+@ConditionalOnProperty(name = "event_bus", havingValue = "kafka")
+public class AccountingKafkaEventConsumer implements KafkaEventConsumer {
 
     private final EventHandler eventHandler;
 

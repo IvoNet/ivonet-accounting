@@ -5,26 +5,14 @@ event_bus: rabbitmq
 
 spring:
   jpa:
-    # PostgreSQL settings
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
-
     show-sql: true
     hibernate:
       ddl-auto: update
-    # MySQL Settings
-  #    database-platform: org.hibernate.dialect.MySQL8Dialect
-  #    show-sql: true
-  #    hibernate:
-  #      ddl-auto: update
   datasource:
-    # PostgreSQL settings
     url: jdbc:postgresql://localhost:5432/accounting
     username: accounting
     password: s3cr3t
-    # MySQL Settings
-  #    url: jdbc:mysql://localhost:3306/accounting?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false
-  #    username: root
-  #    password: s3cr3t
   kafka:
     listener:
       ack-mode: manual_immediate

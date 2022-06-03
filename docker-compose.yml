@@ -34,6 +34,27 @@ services:
     networks:
       - accounting
 
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    env_file:
+      - ./.rabbitmq.env
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-accounting}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-s3cr3t}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST:-accounting}
+      RABBITMQ_DEFAULT_PORT: ${RABBITMQ_DEFAULT_PORT:-5672}
+    hostname: localhost
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "${RABBITMQ_HOST_PORT:-5672}:${RABBITMQ_DEFAULT_PORT:-5672}"
+      - "${RABBITMQ_UI_HOST_PORT:-15672}:15672"
+    networks:
+      - accounting
+    restart: unless-stopped
+
+
   mariadb:
     image: ivonet/mariadb
     volumes:
@@ -68,15 +89,15 @@ services:
       - accounting
     restart: unless-stopped
 
-#  manager:
-#    image: sheepkiller/kafka-manager
-#    ports:
-#      - 9000:9000
-#    environment:
-#      - ZK_HOSTS=zookeeper:2181
-#    depends_on:
-#      - zookeeper
-#      - kafka
+  manager:
+    image: sheepkiller/kafka-manager
+    ports:
+      - 9000:9000
+    environment:
+      - ZK_HOSTS=zookeeper:2181
+    depends_on:
+      - zookeeper
+      - kafka
 
 volumes:
   zookeeper_data:
@@ -85,6 +106,7 @@ volumes:
   mongo-data-db:
   mongo-data-configdb:
   postgres-data:
+  rabbitmq:
 
 networks:
   accounting:

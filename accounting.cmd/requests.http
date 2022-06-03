@@ -22,7 +22,18 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8000/api/v1/depositFunds/cbf80afe-4d1b-4574-8814-d51cf624c158
+POST http://localhost:8000/api/v1/openBankAccount
+Content-Type: application/json
+
+{
+  "accountHolder": "jane doe",
+  "accountNumber": "4242424242",
+  "accountType": "SAVINGS",
+  "initialBalance": 42.0
+}
+
+###
+PUT http://localhost:8000/api/v1/depositFunds/{{id}}
 Content-Type: application/json
 
 {
@@ -31,7 +42,7 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:8000/api/v1/withdrawFunds/cbf80afe-4d1b-4574-8814-d51cf624c158
+PUT http://localhost:8000/api/v1/withdrawFunds/{{id}}
 Content-Type: application/json
 
 {
@@ -39,7 +50,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/api/v1/closeAccount/cbf80afe-4d1b-4574-8814-d51cf624c158
+DELETE http://localhost:8000/api/v1/closeAccount/{{id}}
 
 
 ###
@@ -51,7 +62,7 @@ GET http://localhost:8001/api/v1/bankAccountLookup
 Accept: application/json
 
 ###
-GET http://localhost:8001/api/v1/bankAccountLookup/byId/cbf80afe-4d1b-4574-8814-d51cf624c158
+GET http://localhost:8001/api/v1/bankAccountLookup/byId/{{id}}
 Accept: application/json
 
 ###
@@ -65,3 +76,6 @@ Accept: application/json
 ###
 GET http://localhost:8001/api/v1/bankAccountLookup/withBalance/LESS_THAN/100
 Accept: application/json
+
+###
+GET http://localhost:8001/api/v1/bankAccountLookup/withBalance/BETWEEN/50/100

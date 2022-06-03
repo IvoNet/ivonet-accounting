@@ -19,7 +19,6 @@ public class RegisterHandlersInitializingBean implements InitializingBean {
     private final CommandDispatcher commandDispatcher;
     private final CommandHandler commandHandler;
 
-
     @Override
     public void afterPropertiesSet() {
         this.commandDispatcher.registerHandler(OpenAccountCommand.class, this.commandHandler::handle);

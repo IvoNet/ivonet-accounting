@@ -1,7 +1,7 @@
 server:
   port: 8000
 
-event_bus: rabbitmq
+event_bus: kafka
 
 spring:
   data:
