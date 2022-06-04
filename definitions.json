@@ -1,0 +1,58 @@
+{
+    "users": [
+        {
+            "name": "accounting",
+            "password_hash": "a1FVe4AhbcX+HG5HQg/ScpzO1d1hplqseRJzdbWSC3rR6UwJ",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "administrator"
+        }
+    ],
+    "vhosts": [
+        {
+            "name": "accounting",
+            "permissions": "administrator"
+        },
+        {
+            "name": "/",
+            "permissions": "administrator"
+        }
+    ],
+    "queues": [
+        {
+            "name": "AccountOpenedEvent",
+            "vhost": "accounting",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        },
+        {
+            "name": "FundsWithdrawnEvent",
+            "vhost": "accounting",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        },
+        {
+            "name": "FundsDepositedEvent",
+            "vhost": "accounting",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        },
+        {
+            "name": "AccountClosedEvent",
+            "vhost": "accounting",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-queue-type": "classic"
+            }
+        }
+    ]
+}

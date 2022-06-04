@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 @ConditionalOnProperty(name = "event_bus", havingValue = "rabbitmq")
 public class AccountingRabbitMQEventProducer implements EventProducer {
 
-    private final RabbitTemplate kafkaTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
     @Override
     public void publish(String topic, BaseEvent event) {
-        this.kafkaTemplate.convertAndSend(topic, event);
+        this.rabbitTemplate.convertAndSend(topic, event);
     }
 }

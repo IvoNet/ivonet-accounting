@@ -1,0 +1,40 @@
+server:
+  port: 8001
+
+event_bus: kafka
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://mariadb:3306/accounting?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: s3cr3t
+  kafka:
+    listener:
+      ack-mode: manual_immediate
+    consumer:
+      bootstrap-servers: zookeeper:9092
+      group-id: accountingConsumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: accounting
+    password: s3cr3t
+    virtual-host: accounting
+    dynamic: true
+    listener:
+      simple:
+        acknowledge-mode: manual

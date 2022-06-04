@@ -1,6 +1,7 @@
 package nl.ivonet.accounting.cmd.config;
 
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,23 +14,23 @@ public class RabbitMQConfig {
 
 
     @Bean
-    public Queue accountClosedEventQueue() {
-        return new Queue("AccountClosedEvent");
+    Queue accountClosedEventQueue() {
+        return QueueBuilder.durable("AccountClosedEvent").build();
     }
 
     @Bean
-    public Queue accountOpenedEventQueue() {
-        return new Queue("AccountOpenedEvent");
+    Queue accountOpenedEventQueue() {
+        return QueueBuilder.durable("AccountOpenedEvent").build();
     }
 
     @Bean
-    public Queue fundsDepositedEventQueue() {
-        return new Queue("FundsDepositedEvent");
+    Queue fundsDepositedEventQueue() {
+        return QueueBuilder.durable("FundsDepositedEvent").build();
     }
 
     @Bean
-    public Queue fundsWithdrawnEventQueue() {
-        return new Queue("FundsWithdrawnEvent");
+    Queue fundsWithdrawnEventQueue() {
+        return QueueBuilder.durable("FundsWithdrawnEvent").build();
     }
 
 }
