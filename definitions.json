@@ -2,7 +2,7 @@
     "users": [
         {
             "name": "accounting",
-            "password_hash": "a1FVe4AhbcX+HG5HQg/ScpzO1d1hplqseRJzdbWSC3rR6UwJ",
+            "password_hash": "6Ttf12gS0vF9a0CT5OMrDRLBCHjiQlnnAsrk9pDtijO5A3Gq",
             "hashing_algorithm": "rabbit_password_hashing_sha256",
             "tags": "administrator"
         }

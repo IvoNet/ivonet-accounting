@@ -2,7 +2,7 @@
 
 docker-compose up -d rabbitmq mongo mariadb
 
-mvn clean install -Prabbitmq_mariadb,rabbitmq
+mvn clean install -Dspring.profiles.active=rabbitmq_mariadb,rabbitmq
 
 if [ $? -ne 0 ]; then
     echo "Maven failed"

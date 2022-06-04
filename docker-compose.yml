@@ -92,42 +92,42 @@ services:
     restart: unless-stopped
 
 #  manager:
-#    image: sheepkiller/kafka-manager
-#    ports:
-#      - 9000:9000
-#    environment:
-#      - ZK_HOSTS=zookeeper:2181
-#    depends_on:
-#      - zookeeper
-#      - kafka
+  #    image: sheepkiller/kafka-manager
+  #    ports:
+  #      - 9000:9000
+  #    environment:
+  #      - ZK_HOSTS=zookeeper:2181
+  #    depends_on:
+  #      - zookeeper
+  #      - kafka
 
-#  cmd:
-#    image: ivonet/java-jmx-debug
-#    ports:
-#      - "8000:8080"
-#    networks:
-#      - accounting
-#    restart: unless-stopped
-#    environment:
-#      - SPRING_CONFIG_NAME=application
-#      - SPRING_CONFIG_LOCATION=file:///opt/
-#    volumes:
-#      - ./accounting.cmd/target/accounting-command-service.jar:/opt/service.jar:ro
-#      - ./accounting.cmd/src/main/resources/docker-${CMD_PROFILE:-rabbit}.yml:/opt/application.yaml:ro
-#
-#  qry:
-#    image: ivonet/java-jmx-debug
-#    ports:
-#      - 8001:8080
-#    networks:
-#      - accounting
-#    restart: unless-stopped
-#    environment:
-#      - SPRING_CONFIG_NAME=application
-#      - SPRING_CONFIG_LOCATION=file:///opt/
-#    volumes:
-#      - ./accounting.query/target/accounting-query-service.jar:/opt/service.jar:ro
-#      - ./accounting.query/src/main/resources/docker-${QRY_PROFILE:-rabbitmq}.yml:/opt/application.yaml:ro
+  cmd:
+    image: ivonet/java-jmx-debug
+    ports:
+      - "8000:8080"
+    networks:
+      - accounting
+    restart: unless-stopped
+    environment:
+      - SPRING_CONFIG_NAME=application
+      - SPRING_CONFIG_LOCATION=file:///opt/
+    volumes:
+      - ./accounting.cmd/target/accounting-command-service.jar:/opt/service.jar:ro
+      - ./accounting.cmd/src/main/resources/docker-${CMD_PROFILE:-rabbit}.yml:/opt/application.yaml:ro
+
+  qry:
+    image: ivonet/java-jmx-debug
+    ports:
+      - 8001:8080
+    networks:
+      - accounting
+    restart: unless-stopped
+    environment:
+      - SPRING_CONFIG_NAME=application
+      - SPRING_CONFIG_LOCATION=file:///opt/
+    volumes:
+      - ./accounting.query/target/accounting-query-service.jar:/opt/service.jar:ro
+      - ./accounting.query/src/main/resources/docker-${QRY_PROFILE:-rabbitmq}.yml:/opt/application.yaml:ro
 
 volumes:
   zookeeper_data:
