@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+mkdir -k ./volumes/postgres/setup 2>/dev/null
+cp -v ./postgres_setup.sql ./volumes/postgres/setup
+
 docker-compose up -d rabbitmq mongo postgres
 
 mvn clean install -Dspring.profiles.active=rabbitmq_postgres,rabbitmq

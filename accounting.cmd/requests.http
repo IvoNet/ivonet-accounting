@@ -37,7 +37,7 @@ PUT http://localhost:8000/api/v1/depositFunds/{{id}}
 Content-Type: application/json
 
 {
-  "amount": 424215.99
+  "amount": 1.99
 }
 
 
@@ -46,7 +46,7 @@ PUT http://localhost:8000/api/v1/withdrawFunds/{{id}}
 Content-Type: application/json
 
 {
-  "amount": 42.0
+  "amount": 0.93
 }
 
 ###

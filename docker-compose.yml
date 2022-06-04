@@ -26,8 +26,8 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo-data-db:/data/db
-      - mongo-data-configdb:/data/configdb
+      - ./volumes/mongo/mongo-data-db:/data/db
+      - ./volumes/mongo/mongo-data-configdb:/data/configdb
     environment:
       MONGO_INITDB_ROOT_USERNAME: accounting
       MONGO_INITDB_ROOT_PASSWORD: s3cr3t
@@ -133,8 +133,8 @@ volumes:
   zookeeper_data:
   kafka_data:
   mariadb-data:
-  mongo-data-db:
-  mongo-data-configdb:
+  #  mongo-data-db:
+  #  mongo-data-configdb:
   postgres-data:
   rabbitmq:
 
