@@ -2,7 +2,13 @@
 
 docker-compose up -d rabbitmq mongo mariadb
 
-mvn clean install -Dspring.profiles.active=rabbitmq_mariadb,rabbitmq
+if [ -n "$1" ]; then
+    echo "Omitting CQRS application(s) in docker-compose"
+    docker-compose logs -f
+    exit 0
+fi
+
+mvn clean install
 
 if [ $? -ne 0 ]; then
     echo "Maven failed"
@@ -10,6 +16,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-QRY_PROFILE=rabbitmq_mariadb CMD_PROFILE=rabbitmq docker-compose up -d cmd qry
+docker-compose up -d cmd qry
 
 docker-compose logs -f

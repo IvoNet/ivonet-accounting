@@ -1,45 +1,17 @@
 server:
   port: 8001
 
-event_bus: rabbitmq
-
 spring:
   jpa:
-    # PostgreSQL settings
-    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
-
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+    open-in-view: true
     hibernate:
       ddl-auto: update
-    # MySQL Settings
-  #    database-platform: org.hibernate.dialect.MySQL8Dialect
-  #    show-sql: true
-  #    hibernate:
-  #      ddl-auto: update
   datasource:
-    # PostgreSQL settings
-    url: jdbc:postgresql://localhost:5432/accounting
-    username: accounting
+    url: jdbc:mysql://localhost:3306/accounting?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
     password: s3cr3t
-    # MySQL Settings
-  #    url: jdbc:mysql://localhost:3306/accounting?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false
-  #    username: root
-  #    password: s3cr3t
-  kafka:
-    listener:
-      ack-mode: manual_immediate
-    consumer:
-      bootstrap-servers: localhost:9092
-      group-id: accountingConsumer
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: '*'
-
   rabbitmq:
     host: localhost
     port: 5672

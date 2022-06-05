@@ -12,7 +12,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import java.io.IOException;
 
 
-public interface RabbitMQEventConsumer {
+public interface EventConsumer {
     void consume(@Payload AccountOpenedEvent event, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException;
 
     void consume(@Payload FundsDepositedEvent event, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException;

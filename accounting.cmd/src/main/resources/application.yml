@@ -1,20 +1,13 @@
 server:
   port: 8000
 
-event_bus: rabbitmq
-
 spring:
   data:
     mongodb:
       host: localhost
       port: 27017
       database: accounting
-      uri: mongodb://accounting:s3cr3t@mongo:27017/
-  kafka:
-    producer:
-      bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      uri: mongodb://accounting:s3cr3t@localhost:27017/
   rabbitmq:
     host: localhost
     port: 5672
@@ -44,8 +37,11 @@ logging:
 management:
   endpoints:
     web:
+      base-path: /manage
       exposure:
         include: '*'
-  security:
-    enabled: false
+  endpoint:
+    health:
+      enabled: true
+
 

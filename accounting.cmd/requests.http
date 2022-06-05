@@ -4,7 +4,7 @@ POST http://localhost:8000/api/v1/openBankAccount
 Content-Type: application/json
 
 {
-  "accountHolder": "John Doe",
+  "accountHolder": "John Done",
   "accountNumber": "123456789",
   "accountType": "SAVINGS",
   "initialBalance": 50.0
@@ -15,7 +15,7 @@ POST http://localhost:8000/api/v1/openBankAccount
 Content-Type: application/json
 
 {
-  "accountHolder": "Ivo woltring",
+  "accountHolder": "Ivo Woltring",
   "accountNumber": "987654321",
   "accountType": "SAVINGS",
   "initialBalance": 42.0
@@ -26,7 +26,7 @@ POST http://localhost:8000/api/v1/openBankAccount
 Content-Type: application/json
 
 {
-  "accountHolder": "jane doe",
+  "accountHolder": "Jane Doe",
   "accountNumber": "4242424242",
   "accountType": "SAVINGS",
   "initialBalance": 42.0
@@ -37,7 +37,7 @@ PUT http://localhost:8000/api/v1/depositFunds/{{id}}
 Content-Type: application/json
 
 {
-  "amount": 1.99
+  "amount": 0.99
 }
 
 

@@ -10,7 +10,6 @@ import nl.ivonet.accounting.query.infrastructure.handlers.EventHandler;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,7 @@ import java.io.IOException;
 @Service
 @EnableRabbit
 @AllArgsConstructor
-@ConditionalOnProperty(name = "event_bus", havingValue = "rabbitmq")
-public class AccountingRabbitMQEventConsumer implements RabbitMQEventConsumer {
+public class AccountingEventConsumer implements EventConsumer {
 
     private final EventHandler eventHandler;
 
